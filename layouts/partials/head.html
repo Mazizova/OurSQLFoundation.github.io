@@ -76,6 +76,13 @@
 {{/* ── Favicon ── */}}
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
+{{/* ── Plausible Analytics (skipped in local/dev builds) ── */}}
+{{ with .Site.Params.plausible }}
+{{ if hugo.IsProduction }}
+<script defer data-domain="{{ .domain }}" src="{{ .script_url | default "https://plausible.io/js/script.js" }}"></script>
+{{ end }}
+{{ end }}
+
 {{/* ── Resources JS ── */}}
 {{ if eq .Section "resources" }}
 <script src="/js/resources.js" defer></script>
