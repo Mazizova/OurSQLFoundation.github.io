@@ -247,6 +247,29 @@
       border: 1px solid $dark-border;
       display: block;
     }
+
+    p {
+      margin: 0 0 1.25rem;
+      line-height: 1.7;
+    }
+
+    figure {
+      margin: 2rem 0;
+
+      img {
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid $dark-border;
+        display: block;
+      }
+
+      figcaption {
+        font-size: 0.8125rem;
+        color: $muted;
+        text-align: center;
+        margin-top: 0.75rem;
+      }
+    }
   }
 
   .author-card {
@@ -305,13 +328,6 @@
     font-size: 0.8125rem;
     color: $muted;
     margin-top: 0.15rem;
-  }
-
-  .author-card-desc {
-    font-size: 0.875rem;
-    color: $muted;
-    line-height: 1.6;
-    margin: 0.625rem 0 0;
   }
 
   .author-card-link {
