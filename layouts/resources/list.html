@@ -261,7 +261,14 @@
             {{ range (index $page.Params $fp) }}{{ $chips = $chips | append (dict "value" . "path" $fp) }}{{ end }}
           {{ end }}
         {{ end }}
-        <div class="resource-card{{ if $images }} resource-card--has-image{{ end }}"
+        {{ $isPerson := in .Params.subcategories "People" }}
+        {{ $imgRes := "" }}
+        {{ with $images }}
+        {{ $imgFile := index . 0 }}
+        {{ $imgRes = $pageRes.Get $imgFile }}
+        {{ if not $imgRes }}{{ $imgRes = resources.Get (strings.TrimPrefix "/" $imgFile) }}{{ end }}
+        {{ end }}
+        <div class="resource-card{{ if or $imgRes $isPerson }} resource-card--has-image{{ end }}"
           data-url="{{ $pageURL }}"
           data-title="{{ .Title }}"
           data-description="{{ .Description }}"
@@ -270,16 +277,17 @@
           data-format="{{ .Params.format }}"
           data-location="{{ $loc := slice }}{{ with .Params.city }}{{ $loc = $loc | append . }}{{ end }}{{ range .Params.countries }}{{ $loc = $loc | append . }}{{ end }}{{ delimit $loc ", " }}"
         >
-          {{ with $images }}
-          {{ $imgFile := index . 0 }}
-          {{ $imgRes := $pageRes.Get $imgFile }}
-          {{ if not $imgRes }}{{ $imgRes = resources.Get (strings.TrimPrefix "/" $imgFile) }}{{ end }}
-          {{ with $imgRes }}
-          {{ $thumb := .Fit "320x480 jpg" }}
+          {{ if $imgRes }}
+          {{ $thumb := $imgRes.Fit "320x480 jpg" }}
           <a href="{{ $pageURL }}" class="resource-card-image-wrap resource-card-image-wrap--portrait">
             <img src="{{ $thumb.RelPermalink }}" alt="{{ $pageTitle }}" class="resource-card-image" loading="lazy" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}">
           </a>
-          {{ end }}
+          {{ else if $isPerson }}
+          {{ $initials := "" }}
+          {{ range split $pageTitle " " }}{{ $initials = printf "%s%s" $initials (substr . 0 1) }}{{ end }}
+          <a href="{{ $pageURL }}" class="resource-card-image-wrap resource-card-image-wrap--portrait">
+            <div class="resource-card-image resource-card-image--placeholder" aria-hidden="true">{{ $initials }}</div>
+          </a>
           {{ end }}
           <div class="resource-card-body">
             <h2 class="resource-card-title">{{ .Title }}</h2>

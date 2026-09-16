@@ -8,19 +8,30 @@
     <span>{{ .Title }}</span>
   </nav>
 
-  <div class="resource-single-layout{{ with .Params.images }} resource-single-layout--with-image{{ end }}">
-
-  {{/* Image column — leaf bundle first, fallback to global assets */}}
+  {{/* People without a photo still get the image column — an initials
+       placeholder — so the layout doesn't collapse to full-width just
+       because a photo wasn't available (e.g. no public LinkedIn photo). */}}
+  {{ $isPerson := in .Params.subcategories "People" }}
+  {{ $imgRes := "" }}
   {{ with .Params.images }}
   {{ $imgFile := index . 0 }}
-  {{ $imgRes := $.Resources.Get $imgFile }}
+  {{ $imgRes = $.Resources.Get $imgFile }}
   {{ if not $imgRes }}{{ $imgRes = resources.Get (strings.TrimPrefix "/" $imgFile) }}{{ end }}
-  {{ with $imgRes }}
+  {{ end }}
+
+  <div class="resource-single-layout{{ if or $imgRes $isPerson }} resource-single-layout--with-image{{ end }}">
+
+  {{ if $imgRes }}
   <div class="resource-single-image-col">
-    {{ $img := .Fit "600x900 jpg" }}
+    {{ $img := $imgRes.Fit "600x900 jpg" }}
     <img src="{{ $img.RelPermalink }}" alt="" class="resource-single-img" loading="lazy" width="{{ $img.Width }}" height="{{ $img.Height }}">
   </div>
-  {{ end }}
+  {{ else if $isPerson }}
+  {{ $initials := "" }}
+  {{ range split $.Title " " }}{{ $initials = printf "%s%s" $initials (substr . 0 1) }}{{ end }}
+  <div class="resource-single-image-col">
+    <div class="resource-single-img resource-single-img--placeholder" aria-hidden="true">{{ $initials }}</div>
+  </div>
   {{ end }}
 
   {{/* Content column */}}
