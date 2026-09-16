@@ -1167,6 +1167,48 @@ body.sheet-open {
   margin: 0 0 1rem;
 }
 
+// Company / Project rows on a People profile
+.person-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  background: $dark-surface;
+  border: 1px solid $dark-border;
+  border-radius: 10px;
+}
+
+.person-meta-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.625rem;
+  font-size: 0.9375rem;
+}
+
+.person-meta-label {
+  flex-shrink: 0;
+  width: 80px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $muted;
+}
+
+.person-meta-value {
+  color: $off-white;
+}
+
+.person-meta-link {
+  color: $accent;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .resource-single-content {
   color: $off-white;
   line-height: 1.75;

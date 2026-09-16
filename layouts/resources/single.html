@@ -29,6 +29,28 @@
 
     {{ with .Description }}<p class="resource-single-desc">{{ . }}</p>{{ end }}
 
+    {{/* Person Company / Project — People entries only. Each links to its own
+         catalog page when a matching resource already exists (company_url /
+         project_url); otherwise it renders as plain text. */}}
+    {{ if in .Params.subcategories "People" }}
+    {{ if or .Params.company .Params.project }}
+    <div class="person-meta">
+      {{ with .Params.company }}
+      <div class="person-meta-row">
+        <span class="person-meta-label">Company</span>
+        {{ with $.Params.company_url }}<a href="{{ . }}" class="person-meta-link">{{ $.Params.company }}</a>{{ else }}<span class="person-meta-value">{{ . }}</span>{{ end }}
+      </div>
+      {{ end }}
+      {{ with .Params.project }}
+      <div class="person-meta-row">
+        <span class="person-meta-label">Project</span>
+        {{ with $.Params.project_url }}<a href="{{ . }}" class="person-meta-link">{{ $.Params.project }}</a>{{ else }}<span class="person-meta-value">{{ . }}</span>{{ end }}
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+    {{ end }}
+
     {{/* Metadata */}}
     {{ if or .Params.authors .Params.author .Params.year .Params.source .Params.format .Params.city .Params.countries .Date }}
     <div class="resource-card-meta">

@@ -3,6 +3,7 @@ title: "Maria Nesterova"
 url: "/resources/member-directory/people/maria-nesterova/"
 description: "Managing Director at OurSQL Foundation."
 role: "Managing Director, OurSQL Foundation"
+company: "Underdog Consulting"
 subcategories:
 - People
 roles:

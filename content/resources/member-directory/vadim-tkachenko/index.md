@@ -3,9 +3,12 @@ title: "Vadim Tkachenko"
 url: "/resources/member-directory/people/vadim-tkachenko/"
 description: "Technology Fellow and Co-Founder of Percona, and President of the OurSQL Foundation."
 role: "President, OurSQL Foundation · Technology Fellow & Co-Founder, Percona"
+company: "Percona"
+company_url: "/resources/services/percona/"
 subcategories:
 - People
 roles:
+- Board Member
 - Author
 - Consultant
 recognition:
