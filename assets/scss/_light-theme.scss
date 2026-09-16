@@ -320,6 +320,17 @@
   .resource-single-img {
     border-color: #dde3ed;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+    &--placeholder {
+      background: #f1f5f9;
+      color: #0272a5;
+      box-shadow: none;
+    }
+  }
+
+  .resource-card-image--placeholder {
+    background: #f1f5f9;
+    color: #0272a5;
   }
 
   .resource-tag {
