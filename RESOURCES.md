@@ -176,11 +176,19 @@ title: "Full Name"
 url: "/resources/member-directory/people/full-name/"   # subcategory-slug matches the subcategories value, lowercased
 description: "One line — role, company."
 role: "Job title, Company · other affiliation"          # optional, shown on the profile and any author card
+company: "Company Name"           # optional — shown as a "Company" row on the profile
+company_url: "/resources/services/company-slug/"  # optional — link company_url only when that
+                                   # exact company already has its own page in the catalog
+                                   # (services/software/saas/…); otherwise omit it and
+                                   # `company` renders as plain text
+project: "Project Name"           # optional — same pattern as company, for a specific tool
+project_url: "/resources/software/project-slug/"  # or project this person created/leads
 subcategories: ["People"]
 images:
   - photo.jpg
 ---
 ```
+Only set `company`/`project` when the bio actually names one — most People entries won't have both, some (an independent consultant, say) may have neither.
 
 > Slashes ("/") aren't safe inside a facet value — Hugo treats them as URL path separators and breaks the filter link. Use "&" or "," instead (e.g. "Slack, Discord & IRC", not "Slack / Discord / IRC").
 
